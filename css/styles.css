@@ -9,9 +9,9 @@
     --text-color: #333333;
     --text-secondary: #757575;
     --border-color: #e0e0e0;
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 8px 15px rgba(0, 0, 0, 0.1);
+    --shadow-sm: none; /* Removed shadow */
+    --shadow-md: none; /* Removed shadow */
+    --shadow-lg: none; /* Removed shadow */
     --radius-sm: 0px;
     --radius-md: 0px;
     --radius-lg: 0px;
@@ -37,7 +37,7 @@ body {
 .container {
     max-width: 1400px;
     margin: 0 auto;
-    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color); /* Added border instead of shadow */
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: var(--card-bg-color);
@@ -46,7 +46,7 @@ body {
 header {
     text-align: center;
     padding: 30px 20px;
-    background: linear-gradient(135deg, var(--primary-color), #64b5f6);
+    background: var(--primary-color); /* Changed from gradient to solid color */
     color: white;
     margin-bottom: 0;
     position: relative;
@@ -83,7 +83,7 @@ header p {
 
 .nav-link:hover {
     background-color: rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px);
+    opacity: 0.9; /* Changed from transform to opacity */
 }
 
 header:after {
@@ -92,11 +92,8 @@ header:after {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, 
-        var(--primary-color) 0%, 
-        var(--secondary-color) 50%, 
-        var(--accent-color) 100%);
+    height: 3px; /* Reduced height */
+    background: var(--accent-color); /* Changed from gradient to solid color */
 }
 
 /* Toggle Switch Styles */
@@ -106,7 +103,7 @@ header:after {
     gap: 20px;
     padding: 15px;
     background-color: #f7f9fc;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-bottom: 1px solid var(--border-color); /* Replaced shadow with border */
     margin-bottom: 0;
     flex-wrap: wrap;
 }
@@ -118,12 +115,12 @@ header:after {
     background-color: white;
     padding: 8px 15px;
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color); /* Added border instead of shadow */
     transition: var(--transition);
 }
 
 .classification-toggle:hover, .visualization-toggle:hover {
-    box-shadow: var(--shadow-md);
+    background-color: #f5f5f5; /* Changed hover effect */
 }
 
 .switch {
@@ -167,7 +164,7 @@ input:checked + .slider {
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px var(--primary-color);
+    outline: 1px solid var(--primary-color); /* Replaced box-shadow with outline */
 }
 
 input:checked + .slider:before {
@@ -205,7 +202,7 @@ input:checked + .slider:before {
     flex-direction: column;
     border-radius: 0;
     overflow: hidden;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color); /* Replaced inset shadow with border */
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -220,11 +217,11 @@ input:checked + .slider:before {
 /* Custom popup styling for Leaflet */
 .leaflet-popup-content-wrapper {
     border-radius: 0;
-    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color); /* Replaced shadow with border */
 }
 
 .leaflet-popup-tip {
-    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color); /* Replaced shadow with border */
 }
 
 .controls {
@@ -239,7 +236,7 @@ input:checked + .slider:before {
     padding: 15px;
     border-radius: var(--radius-md);
     width: 280px;
-    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color); /* Replaced shadow with border */
 }
 
 .legend {
@@ -250,7 +247,7 @@ input:checked + .slider:before {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 10px;
     border-radius: 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color); /* Replaced shadow with border */
     max-width: 80%;
     max-height: 300px;
     overflow-y: auto;
@@ -277,7 +274,7 @@ input:checked + .slider:before {
 
 .legend-item:hover {
     background-color: rgba(0, 0, 0, 0.03);
-    transform: translateX(2px);
+    border-left: 2px solid var(--primary-color); /* Changed from transform to border */
 }
 
 .legend-color {
@@ -292,7 +289,6 @@ input:checked + .slider:before {
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-color);
-    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 #zone-legend {
@@ -340,13 +336,13 @@ input:checked + .slider:before {
     background: var(--card-bg-color);
     padding: 25px;
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color); /* Replaced shadow with border */
     margin-bottom: 30px;
     transition: var(--transition);
 }
 
 .info-panel:hover {
-    box-shadow: var(--shadow-lg);
+    background-color: #f9f9f9; /* Changed hover effect */
 }
 
 .info-panel h3 {
@@ -374,8 +370,8 @@ input:checked + .slider:before {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .classification-section h4 {
@@ -402,7 +398,7 @@ footer {
 /* Map Controls */
 .leaflet-control-zoom {
     border-radius: var(--radius-sm) !important;
-    box-shadow: var(--shadow-md) !important;
+    border: 1px solid var(--border-color) !important; /* Replaced shadow with border */
 }
 
 .leaflet-control-zoom a {
@@ -525,7 +521,7 @@ footer {
     background: var(--card-bg-color);
     padding: 25px;
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color); /* Replaced shadow with border */
     transition: var(--transition);
     
     /* Modal styling */
@@ -556,7 +552,7 @@ footer {
 
 .calculator-close:hover {
     color: var(--secondary-color);
-    transform: scale(1.1);
+    opacity: 0.8; /* Changed from transform to opacity */
 }
 
 /* Modal backdrop */
@@ -572,7 +568,7 @@ footer {
 }
 
 .calculator-panel:hover {
-    box-shadow: var(--shadow-lg);
+    background-color: #f9f9f9; /* Changed hover effect */
 }
 
 .calculator-panel h3 {
@@ -627,7 +623,7 @@ footer {
 .form-group select:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    border-width: 2px; /* Replaced box-shadow with thicker border */
 }
 
 .location-group {
@@ -654,17 +650,15 @@ footer {
     font-size: 1rem;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: var(--shadow-sm);
 }
 
 .calculate-btn:hover {
     background-color: #2980b9;
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    opacity: 0.9; /* Added opacity change instead of transform */
 }
 
 .calculate-btn:active {
-    transform: translateY(0);
+    opacity: 1; /* Reset opacity on active */
 }
 
 .cost-results {
@@ -701,7 +695,7 @@ footer {
 
 .result-item:hover {
     background-color: rgba(0, 0, 0, 0.05);
-    transform: translateY(-2px);
+    opacity: 0.9; /* Changed from transform to opacity */
 }
 
 .result-item.total {
@@ -773,7 +767,7 @@ footer {
 /* Enhanced form styling */
 .form-group select:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
+    border-width: 2px; /* Replaced box-shadow with thicker border */
 }
 
 /* Tooltip for additional information */
@@ -811,6 +805,7 @@ footer {
     opacity: 0;
     transition: opacity 0.3s;
     border-radius: 0px;
+    border: 1px solid #222; /* Added border instead of shadow */
 }
 
 /* Climate metrics display */
@@ -844,8 +839,10 @@ footer {
     cursor: pointer;
     transition: var(--transition);
     text-align: center;
+    /* Removed box-shadow */
 }
 
 .open-calculator-btn:hover {
     background-color: var(--primary-dark);
+    opacity: 0.9; /* Added opacity change instead of transform */
 } 

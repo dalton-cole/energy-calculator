@@ -1002,7 +1002,7 @@ style.textContent = `
         font-family: 'Open Sans', sans-serif;
         padding: 8px 12px;
         font-size: 14px;
-        box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
     
     .electricity-price-info {
