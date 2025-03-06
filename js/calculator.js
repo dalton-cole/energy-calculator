@@ -317,9 +317,42 @@ function hookIntoMapEvents() {
 
 // Show the calculator modal
 function showCalculator() {
-    document.querySelector('.calculator-panel').style.display = 'block';
-    document.querySelector('.modal-backdrop').style.display = 'block';
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    // On mobile, add a delay to allow users to see the county info first
+    if (window.innerWidth < 768) {
+        // First make sure the county info is visible
+        const infoPanel = document.querySelector('.info-panel');
+        if (infoPanel) {
+            infoPanel.scrollIntoView({ behavior: 'smooth' });
+            
+            // Add a button to open calculator instead of showing it automatically
+            const openCalculatorBtn = document.createElement('button');
+            openCalculatorBtn.className = 'open-calculator-btn';
+            openCalculatorBtn.textContent = 'Open Energy Calculator';
+            openCalculatorBtn.addEventListener('click', function() {
+                document.querySelector('.calculator-panel').style.display = 'block';
+                document.querySelector('.modal-backdrop').style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+                this.style.display = 'none'; // Hide the button
+            });
+            
+            // Remove any existing button before adding a new one
+            const existingBtn = document.querySelector('.open-calculator-btn');
+            if (existingBtn) {
+                existingBtn.remove();
+            }
+            
+            // Add the button to the county info panel
+            const countyInfo = document.getElementById('county-info');
+            if (countyInfo) {
+                countyInfo.appendChild(openCalculatorBtn);
+            }
+        }
+    } else {
+        // On desktop, show calculator immediately
+        document.querySelector('.calculator-panel').style.display = 'block';
+        document.querySelector('.modal-backdrop').style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
 }
 
 // Hide the calculator modal
@@ -327,6 +360,22 @@ function hideCalculator() {
     document.querySelector('.calculator-panel').style.display = 'none';
     document.querySelector('.modal-backdrop').style.display = 'none';
     document.body.style.overflow = ''; // Restore scrolling
+    
+    // On mobile, show the open calculator button again
+    if (window.innerWidth < 768) {
+        const openCalculatorBtn = document.querySelector('.open-calculator-btn');
+        if (openCalculatorBtn) {
+            openCalculatorBtn.style.display = 'block';
+        }
+    }
+    
+    // Ensure the page scrolls to where the user was before
+    if (window.innerWidth < 768) {
+        const infoPanel = document.querySelector('.info-panel');
+        if (infoPanel) {
+            infoPanel.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
 }
 
 // Update selected location and show calculator
@@ -649,6 +698,10 @@ function calculateCosts() {
     
     // Show results
     document.getElementById('cost-results').classList.remove('hidden');
+    
+    // Scroll to the results
+    const resultsElement = document.getElementById('cost-results');
+    resultsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     
     console.log("Calculation details:", results);
     

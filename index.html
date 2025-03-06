@@ -41,23 +41,11 @@
         
         <div class="map-container">
             <div id="map"></div>
+            <!-- 
             <div class="controls">
-                <div class="legend">
-                    <h3>Legend</h3>
-                    <div id="zone-legend"></div>
-                    <div class="legend-stats">
-                        <p id="total-counties"></p>
-                    </div>
-                </div>
-                <div class="filters">
-                    <select id="zone-filter">
-                        <option value="">All Zones</option>
-                    </select>
-                    <select id="state-filter">
-                        <option value="">All States</option>
-                    </select>
-                </div>
+                Note: Legend and filters have been removed as requested
             </div>
+            -->
         </div>
         
         <div class="info-panel">
@@ -77,6 +65,11 @@
         <p class="calculator-intro">Estimate your annual energy costs and savings with Haven Panels high-performance building systems.</p>
         
         <div class="calculator-form">
+            <div class="form-group location-group">
+                <label>Location:</label>
+                <div class="location-display" id="selected-location">No location selected - click a county on the map</div>
+            </div>
+            
             <div class="form-group">
                 <label for="square-footage">Home Square Footage:</label>
                 <input type="number" id="square-footage" value="2000" min="100" max="10000">
@@ -155,11 +148,6 @@
                     <option value="high" selected>High Efficiency</option>
                     <option value="premium">Premium Efficiency</option>
                 </select>
-            </div>
-            
-            <div class="form-group location-group">
-                <label>Location:</label>
-                <div class="location-display" id="selected-location">No location selected - click a county on the map</div>
             </div>
             
             <button id="calculate-costs" class="calculate-btn">Calculate Costs</button>

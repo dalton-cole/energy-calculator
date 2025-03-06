@@ -139,8 +139,8 @@ function initMap() {
             generateIECCZonesList();
             generateBAZonesList();
             
-            // Populate filters
-            populateFilters();
+            // Filters have been removed, so no need to populate them
+            // populateFilters();
             
             // Load electricity price data
             loadElectricityPriceData();
@@ -165,12 +165,12 @@ function initMap() {
     document.getElementById('classification-toggle').addEventListener('change', function() {
         window.currentClassification = this.checked ? 'ba' : 'iecc';
         
-        // Reset filters when switching classification
-        currentFilters.zone = 'all';
-        document.getElementById('zone-filter').value = 'all';
+        // Reset filters when switching classification - filters removed so commented out
+        // currentFilters.zone = 'all';
+        // document.getElementById('zone-filter').value = 'all';
         
-        // Update dropdown options for new classification
-        populateFilters();
+        // Filters have been removed, so no need to populate them
+        // populateFilters();
         
         // Render map with new classification
         renderMap();
@@ -207,6 +207,8 @@ function initMap() {
         console.log("Visualization toggled to:", currentVisualization);
     });
     
+    // Filters have been removed, so these listeners are not needed
+    /*
     // Set up filter listeners
     document.getElementById('zone-filter').addEventListener('change', function() {
         currentFilters.zone = this.value;
@@ -217,6 +219,7 @@ function initMap() {
         currentFilters.state = this.value;
         renderMap();
     });
+    */
     
     // Initialize classification toggle visibility based on initial visualization
     const classificationToggle = document.querySelector('.classification-toggle');
@@ -768,7 +771,10 @@ window.showCountyInfo = function(e) {
     
     // Scroll the info panel into view on mobile
     if (window.innerWidth < 768) {
-        infoPanel.scrollIntoView({ behavior: 'smooth' });
+        const infoPanel = document.querySelector('.info-panel');
+        if (infoPanel) {
+            infoPanel.scrollIntoView({ behavior: 'smooth' });
+        }
     }
 }
 
@@ -891,8 +897,8 @@ function renderMap() {
             }
         }
         
-        // Update the legend with current visualization info
-        generateLegend();
+        // Legend has been removed, so we don't update it anymore
+        // generateLegend();
 
         // Show loading spinner
         document.getElementById('loading-spinner').style.display = 'block';
@@ -914,9 +920,9 @@ function renderMap() {
             onEachFeature: onEachFeature
         }).addTo(map);
 
-        // Update total counties count
-        document.getElementById('total-counties').textContent = 
-            `Displaying ${filteredData.features.length} of ${countyData.features.length} counties`;
+        // Total counties element has been removed, so we don't update it anymore
+        // document.getElementById('total-counties').textContent = 
+        //    `Displaying ${filteredData.features.length} of ${countyData.features.length} counties`;
 
         // Adjust map view if filters are applied
         if (currentFilters.zone !== 'all' || currentFilters.state !== 'all') {

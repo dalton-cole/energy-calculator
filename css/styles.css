@@ -206,6 +206,8 @@ input:checked + .slider:before {
     border-radius: 0;
     overflow: hidden;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #map {
@@ -241,7 +243,17 @@ input:checked + .slider:before {
 }
 
 .legend {
-    flex: 1;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 .legend h3 {
@@ -255,11 +267,12 @@ input:checked + .slider:before {
 .legend-item {
     display: flex;
     align-items: center;
-    padding: 4px 8px;
-    margin-bottom: 6px;
+    padding: 3px 6px;
+    margin-bottom: 4px;
     border-radius: var(--radius-sm);
-    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.7);
     transition: var(--transition);
+    cursor: pointer;
 }
 
 .legend-item:hover {
@@ -271,15 +284,15 @@ input:checked + .slider:before {
     width: 20px;
     height: 20px;
     border-radius: 3px;
-    margin-right: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-right: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .legend-label {
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-color);
-    text-shadow: none;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 #zone-legend {
@@ -442,6 +455,68 @@ footer {
     
     .info-panel {
         padding: 15px;
+    }
+    
+    /* Mobile legend adjustments */
+    .legend {
+        max-width: 95%;
+        left: 50%;
+        transform: translateX(-50%);
+        max-height: 200px;
+    }
+    
+    .legend h3 {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
+    
+    /* Mobile calculator panel adjustments */
+    .calculator-panel {
+        padding: 15px;
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        top: 0;
+        left: 0;
+        transform: none;
+        border-radius: 0;
+        overflow-y: auto;
+    }
+    
+    .calculator-form {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .calculator-close {
+        top: 10px;
+        right: 10px;
+        font-size: 2rem; /* Larger touch target */
+        padding: 5px;
+    }
+    
+    /* Mobile results adjustments */
+    .results-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .result-item {
+        padding: 12px;
+    }
+    
+    .result-value {
+        font-size: 1.2rem;
+    }
+    
+    .chart-container {
+        height: 200px;
+    }
+    
+    /* Make sure the calculator is scrollable on mobile */
+    .calculator-panel {
+        -webkit-overflow-scrolling: touch;
     }
 }
 
@@ -679,17 +754,6 @@ footer {
     color: var(--text-color);
 }
 
-/* Responsiveness */
-@media (max-width: 767px) {
-    .calculator-form {
-        grid-template-columns: 1fr;
-    }
-    
-    .results-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
 /* Emissions styling */
 .result-item.emissions {
     background-color: #27ae60;
@@ -765,13 +829,23 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Make sure emissions shows up properly on mobile */
-@media (max-width: 767px) {
-    .results-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .result-item.emissions {
-        grid-column: 1;
-    }
+/* Button to open calculator on mobile */
+.open-calculator-btn {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.open-calculator-btn:hover {
+    background-color: var(--primary-dark);
 } 
