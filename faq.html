@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climate Zone Explorer - FAQ</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>">
+    <style>
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .faq-section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .faq-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 1.6rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        
+        .faq-item {
+            margin-bottom: 25px;
+        }
+        
+        .faq-item h3 {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+        
+        .faq-item p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .formula {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            font-family: monospace;
+            margin: 15px 0;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Climate Zone Explorer - FAQ</h1>
+            <p>Detailed explanations about calculations and assumptions</p>
+        </header>
+        
+        <div class="faq-container">
+            <div class="faq-section">
+                <h2>Climate Zones</h2>
+                
+                <div class="faq-item">
+                    <h3>What are climate zones?</h3>
+                    <p>Climate zones are geographic regions with similar climate characteristics. For building purposes, these zones help determine appropriate construction techniques, insulation requirements, and energy efficiency standards.</p>
+                    <p>Our application uses two main classification systems:</p>
+                    <ul>
+                        <li><strong>IECC Zones</strong>: The International Energy Conservation Code divides the US into climate zones numbered 1-8 (hottest to coldest) with moisture designations (A=humid, B=dry, C=marine).</li>
+                        <li><strong>Build America Zones</strong>: A simplified system used by the US Department of Energy that groups regions into descriptive categories like "Hot-Humid", "Mixed-Dry", etc.</li>
+                    </ul>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>How are these zones determined?</h3>
+                    <p>Climate zones are primarily determined using Heating Degree Days (HDD) and Cooling Degree Days (CDD):</p>
+                    <ul>
+                        <li><strong>HDD</strong>: Measure how much and for how long outside air temperature falls below a base temperature (usually 65°F/18°C). Higher HDD means more heating is needed.</li>
+                        <li><strong>CDD</strong>: Measure how much and for how long outside air temperature rises above a base temperature. Higher CDD means more cooling is needed.</li>
+                    </ul>
+                    <p>IECC zones also incorporate precipitation data to determine moisture designations (A, B, or C).</p>
+                </div>
+            </div>
+            
+            <div class="faq-section">
+                <h2>Energy Cost Calculations</h2>
+                
+                <div class="faq-item">
+                    <h3>How are heating costs calculated?</h3>
+                    <p>Heating costs are calculated based on the following formula:</p>
+                    <div class="formula">
+                        Heating Energy = (HDD × 24 × UA / Efficiency) × Fuel Price
+                    </div>
+                    <p>Where:</p>
+                    <ul>
+                        <li><strong>HDD</strong>: Heating Degree Days for the selected location</li>
+                        <li><strong>UA</strong>: Overall heat transfer coefficient × area (based on home size, insulation values)</li>
+                        <li><strong>Efficiency</strong>: Heating system efficiency factor</li>
+                        <li><strong>Fuel Price</strong>: Cost per unit of the selected fuel type</li>
+                    </ul>
+                    <p>For electric resistance heating, the efficiency is typically 100%. For heat pumps, we use the location's climate to determine an appropriate seasonal coefficient of performance (COP) ranging from 2.0 to 3.5 depending on the climate zone.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>How are cooling costs calculated?</h3>
+                    <p>Cooling costs follow a similar principle but include additional factors for latent loads (humidity):</p>
+                    <div class="formula">
+                        Cooling Energy = (CDD × 24 × UA × SHR / SEER) × Electricity Price
+                    </div>
+                    <p>Where:</p>
+                    <ul>
+                        <li><strong>CDD</strong>: Cooling Degree Days for the selected location</li>
+                        <li><strong>UA</strong>: Overall heat transfer coefficient × area</li>
+                        <li><strong>SHR</strong>: Sensible Heat Ratio (accounts for latent cooling loads)</li>
+                        <li><strong>SEER</strong>: Seasonal Energy Efficiency Ratio of cooling equipment</li>
+                        <li><strong>Electricity Price</strong>: Local electricity cost per kWh</li>
+                    </ul>
+                    <p>SHR values are adjusted based on climate moisture conditions, with more humid locations having lower SHR values (requiring more energy for dehumidification).</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>What are the R-value assumptions?</h3>
+                    <p>R-values measure thermal resistance - higher values mean better insulation. Our calculator uses the following assumptions:</p>
+                    <ul>
+                        <li><strong>Wall R-values</strong>:
+                            <ul>
+                                <li>R-13: Basic 2×4 wall with fiberglass batt insulation</li>
+                                <li>R-19: Standard 2×6 wall with fiberglass batt insulation</li>
+                                <li>R-21: 2×6 wall with high-density insulation</li>
+                                <li>R-30: Advanced wall system (typically includes continuous exterior insulation)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Ceiling/Roof R-values</strong>:
+                            <ul>
+                                <li>R-30: Basic attic insulation (minimum code in warmer zones)</li>
+                                <li>R-38: Better attic insulation (typical code requirement)</li>
+                                <li>R-49: Advanced attic insulation (recommended for cold climates)</li>
+                                <li>R-60: Premium attic insulation (optimal for very cold climates)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Window and Air Infiltration Assumptions</h3>
+                    <p>The calculator uses the following window and air infiltration assumptions:</p>
+                    <ul>
+                        <li><strong>Window U-factors</strong>:
+                            <ul>
+                                <li>Single-pane: U-1.0 (poorest insulation)</li>
+                                <li>Double-pane: U-0.5 (standard)</li>
+                                <li>Low-E Double-pane: U-0.35 (energy efficient)</li>
+                                <li>Triple-pane: U-0.25 (high performance)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Air Infiltration Rates</strong>:
+                            <ul>
+                                <li>Tight: 0.1-0.2 ACH (Air Changes per Hour) - new/sealed construction</li>
+                                <li>Average: 0.3-0.5 ACH - typical construction</li>
+                                <li>Leaky: 0.6-1.0 ACH - older homes</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>Window area is assumed to be 15% of the floor area, distributed equally on all four sides of the home.</p>
+                </div>
+            </div>
+            
+            <div class="faq-section">
+                <h2>Carbon Emissions</h2>
+                
+                <div class="faq-item">
+                    <h3>How are carbon emissions calculated?</h3>
+                    <p>Carbon emissions are calculated based on the energy consumption and the carbon intensity of the fuel source:</p>
+                    <div class="formula">
+                        CO₂ Emissions = Energy Consumption × Emission Factor
+                    </div>
+                    <p>The emission factors used are:</p>
+                    <ul>
+                        <li><strong>Electricity</strong>: Varies by state based on the generation mix (national average: 0.92 lbs CO₂/kWh)</li>
+                        <li><strong>Natural Gas</strong>: 11.7 lbs CO₂/therm or 117 lbs CO₂/MCF</li>
+                        <li><strong>Propane</strong>: 12.7 lbs CO₂/gallon</li>
+                        <li><strong>Fuel Oil</strong>: 22.4 lbs CO₂/gallon</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-section">
+                <h2>Data Sources</h2>
+                
+                <div class="faq-item">
+                    <h3>Where does the climate data come from?</h3>
+                    <p>Our climate zone data is sourced from:</p>
+                    <ul>
+                        <li>IECC 2021 Climate Zone Map</li>
+                        <li>US Department of Energy Building America Climate Zone definitions</li>
+                        <li>NOAA National Centers for Environmental Information (for HDD and CDD values)</li>
+                    </ul>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Where do the electricity prices come from?</h3>
+                    <p>Residential electricity price data is sourced from the U.S. Energy Information Administration (EIA), specifically the 2023 average residential rates by state.</p>
+                </div>
+            </div>
+            
+            <a href="index.html" class="back-link">← Back to Climate Zone Explorer</a>
+        </div>
+        
+        <footer>
+            <p>Data sources: IECC 2021 and Build America Climate Zones | Electricity Prices (2023): U.S. Energy Information Administration | &copy; <span id="current-year"></span> Climate Zone Explorer</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html> 

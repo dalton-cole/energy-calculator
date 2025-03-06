@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haven Panels Energy Efficiency Calculator</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Add favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Haven Panels Energy Efficiency Calculator</h1>
+            <p>Estimate your annual energy costs and savings with Haven Panels building systems</p>
+            <div class="header-links">
+                <a href="faq.html" class="nav-link">FAQ & Calculation Details</a>
+            </div>
+        </header>
+        
+        <div class="toggle-container">
+            <div class="visualization-toggle">
+                <span class="toggle-label">Climate Zones</span>
+                <label class="switch">
+                    <input type="checkbox" id="visualization-toggle">
+                    <span class="slider round"></span>
+                </label>
+                <span class="toggle-label-right">Electricity Prices</span>
+            </div>
+            
+            <div class="classification-toggle">
+                <span class="toggle-label">IECC</span>
+                <label class="switch">
+                    <input type="checkbox" id="classification-toggle">
+                    <span class="slider round"></span>
+                </label>
+                <span class="toggle-label-right">Build America</span>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <div id="map"></div>
+            <div class="controls">
+                <div class="legend">
+                    <h3>Legend</h3>
+                    <div id="zone-legend"></div>
+                    <div class="legend-stats">
+                        <p id="total-counties"></p>
+                    </div>
+                </div>
+                <div class="filters">
+                    <select id="zone-filter">
+                        <option value="">All Zones</option>
+                    </select>
+                    <select id="state-filter">
+                        <option value="">All States</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <h3>County Information</h3>
+            <div id="county-info">
+                <p>Select a county on the map to view details.</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Data sources: IECC 2021 and Build America Climate Zones | Electricity Prices (2023): U.S. Energy Information Administration | &copy; <span id="current-year"></span> Climate Zone Explorer</p>
+        </footer>
+    </div>
+    
+    <div class="calculator-panel">
+        <h3>Haven Panels Energy Cost Calculator</h3>
+        <p class="calculator-intro">Estimate your annual energy costs and savings with Haven Panels high-performance building systems.</p>
+        
+        <div class="calculator-form">
+            <div class="form-group">
+                <label for="square-footage">Home Square Footage:</label>
+                <input type="number" id="square-footage" value="2000" min="100" max="10000">
+            </div>
+            
+            <div class="form-group">
+                <label for="wall-rvalue">Wall R-Value:</label>
+                <select id="wall-rvalue">
+                    <option value="13">R-13 (2x4 wall with insulation)</option>
+                    <option value="19" selected>R-19 (2x6 wall with insulation)</option>
+                    <option value="21">R-21 (2x6 wall with advanced insulation)</option>
+                    <option value="30">R-30 (Advanced wall system)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="ceiling-rvalue">Ceiling/Roof R-Value:</label>
+                <select id="ceiling-rvalue">
+                    <option value="30">R-30 (Basic attic insulation)</option>
+                    <option value="38" selected>R-38 (Better attic insulation)</option>
+                    <option value="49">R-49 (Advanced attic insulation)</option>
+                    <option value="60">R-60 (Premium attic insulation)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="window-type">Window Type:</label>
+                <select id="window-type">
+                    <option value="single">Single-pane (U-1.0)</option>
+                    <option value="double" selected>Double-pane (U-0.5)</option>
+                    <option value="lowE">Low-E Double-pane (U-0.35)</option>
+                    <option value="triple">Triple-pane (U-0.25)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="infiltration">Air Infiltration Rate:</label>
+                <select id="infiltration">
+                    <option value="tight">Tight (New/Sealed Construction)</option>
+                    <option value="average" selected>Average (Typical Construction)</option>
+                    <option value="leaky">Leaky (Older Home)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="heating-fuel">Heating Fuel Type:</label>
+                <select id="heating-fuel">
+                    <option value="electricity" selected>Electricity</option>
+                    <option value="natural_gas">Natural Gas</option>
+                    <option value="propane">Propane</option>
+                    <option value="fuel_oil">Fuel Oil</option>
+                </select>
+            </div>
+            
+            <div class="form-group electric-heat-options">
+                <label for="heat-system-type">Electric Heating System:</label>
+                <select id="heat-system-type">
+                    <option value="heat_pump" selected>Heat Pump</option>
+                    <option value="electric">Electric Resistance</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="duct-location">Duct Location:</label>
+                <select id="duct-location">
+                    <option value="conditioned">In Conditioned Space</option>
+                    <option value="unconditioned" selected>In Attic/Basement</option>
+                    <option value="none">No Ducts (Ductless System)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="efficiency">HVAC System Efficiency:</label>
+                <select id="efficiency">
+                    <option value="standard">Standard Efficiency</option>
+                    <option value="high" selected>High Efficiency</option>
+                    <option value="premium">Premium Efficiency</option>
+                </select>
+            </div>
+            
+            <div class="form-group location-group">
+                <label>Location:</label>
+                <div class="location-display" id="selected-location">No location selected - click a county on the map</div>
+            </div>
+            
+            <button id="calculate-costs" class="calculate-btn">Calculate Costs</button>
+        </div>
+        
+        <div id="cost-results" class="cost-results hidden">
+            <h4>Estimated Annual Energy Costs</h4>
+            <div class="results-grid">
+                <div class="result-item">
+                    <div class="result-label">Heating Cost:</div>
+                    <div class="result-value" id="heating-cost">$0</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Cooling Cost:</div>
+                    <div class="result-value" id="cooling-cost">$0</div>
+                </div>
+                <div class="result-item total">
+                    <div class="result-label">Total Annual Cost:</div>
+                    <div class="result-value" id="total-cost">$0</div>
+                </div>
+                <div class="result-item emissions">
+                    <div class="result-label">Carbon Emissions:</div>
+                    <div class="result-value" id="carbon-emissions">0 lbs CO₂</div>
+                </div>
+            </div>
+            <div class="energy-breakdown">
+                <h5>Energy Consumption Breakdown</h5>
+                <div class="chart-container">
+                    <canvas id="energy-chart"></canvas>
+                </div>
+            </div>
+            <div class="efficiency-tips">
+                <h5>Efficiency Recommendations</h5>
+                <ul id="efficiency-recommendations">
+                    <li>Select a location to see personalized recommendations.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/calculator.js"></script>
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html> 

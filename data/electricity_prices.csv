@@ -1,0 +1,53 @@
+State,StateID,Period,Price (cents/kWh)
+Hawaii,HI,2023,42.39
+Connecticut,CT,2023,29.88
+Massachusetts,MA,2023,29.61
+California,CA,2023,29.51
+New Hampshire,NH,2023,28.15
+Maine,ME,2023,27.42
+Rhode Island,RI,2023,27.02
+Alaska,AK,2023,23.9
+New York,NY,2023,22.24
+Vermont,VT,2023,20.82
+Michigan,MI,2023,18.84
+Pennsylvania,PA,2023,18.1
+New Jersey,NJ,2023,17.7
+Wisconsin,WI,2023,16.88
+Nevada,NV,2023,16.67
+Maryland,MD,2023,16.6
+District of Columbia,DC,2023,16.45
+Delaware,DE,2023,15.73
+Illinois,IL,2023,15.71
+Ohio,OH,2023,15.38
+Florida,FL,2023,15.21
+Indiana,IN,2023,14.94
+Minnesota,MN,2023,14.73
+Alabama,AL,2023,14.63
+Texas,TX,2023,14.46
+Colorado,CO,2023,14.3
+Virginia,VA,2023,14.26
+West Virginia,WV,2023,14.05
+Arizona,AZ,2023,14.02
+New Mexico,NM,2023,13.85
+Georgia,GA,2023,13.69
+South Carolina,SC,2023,13.68
+Kansas,KS,2023,13.38
+Iowa,IA,2023,13.31
+Mississippi,MS,2023,13.23
+North Carolina,NC,2023,12.93
+Oregon,OR,2023,12.73
+Kentucky,KY,2023,12.65
+Missouri,MO,2023,12.58
+Montana,MT,2023,12.54
+South Dakota,SD,2023,12.32
+Arkansas,AR,2023,12.25
+Tennessee,TN,2023,12.19
+Oklahoma,OK,2023,12.08
+Louisiana,LA,2023,11.55
+Wyoming,WY,2023,11.46
+Nebraska,NE,2023,11.2
+Utah,UT,2023,11.2
+Idaho,ID,2023,11.05
+North Dakota,ND,2023,11.01
+Washington,WA,2023,10.98
+U.S. Average,US,2023,16
